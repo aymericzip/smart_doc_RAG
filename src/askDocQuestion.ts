@@ -79,7 +79,7 @@ const chunkText = (text: string): string[] => {
 import { OpenAI } from "openai";
 
 const EMBEDDING_MODEL: OpenAI.Embeddings.EmbeddingModel =
-  "text-embedding-ada-002"; // Model to use for embedding generation
+  "text-embedding-3-large"; // Model to use for embedding generation
 const OPENAI_API_KEY: string = "...";
 
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
@@ -103,6 +103,13 @@ const generateEmbedding = async (textChunk: string): Promise<number[]> => {
 
 import embeddingsList from "../embeddings.json";
 
+type VectorStoreEl = {
+  filePath: string;
+  chunkNumber: number;
+  content: string;
+  embedding: number[];
+};
+
 /**
  * Simple in-memory vector store to hold document embeddings and their content.
  * Each entry contains:
@@ -111,12 +118,7 @@ import embeddingsList from "../embeddings.json";
  * - content: The actual text content of the chunk
  * - embedding: The numerical embedding vector for the chunk
  */
-const vectorStore: {
-  filePath: string;
-  chunkNumber: number;
-  content: string;
-  embedding: number[];
-}[] = [];
+const vectorStore: VectorStoreEl[] = [];
 
 /**
  * Indexes all Markdown documents by generating embeddings for each chunk and storing them in memory.
@@ -222,7 +224,9 @@ const MAX_RELEVANT_CHUNKS_NB = 15; // Maximum number of relevant chunks to attac
  * @param query - The search query provided by the user
  * @returns An array of the top matching document chunks' content
  */
-const searchChunkReference = async (query: string) => {
+const searchChunkReference = async (
+  query: string
+): Promise<VectorStoreEl[]> => {
   // Generate an embedding for the user's query
   const queryEmbedding = await generateEmbedding(query);
 
@@ -289,7 +293,6 @@ export const askDocQuestion = async (
         You're an helpful chatbot.\
         You will answer question regarding the life of power rangers.\
         If the information asked by the user is not provided into the provided chunks. You should suggest other questions.\
-        ...\
         Here is the relevant documentation:" +
         relevantChunks
           .map(
@@ -309,5 +312,9 @@ export const askDocQuestion = async (
 
   const result = response.choices[0].message.content; // Extract the assistant's reply
 
-  return result ?? "Error";
+  if (!result) {
+    throw new Error("No response from OpenAI");
+  }
+
+  return result;
 };

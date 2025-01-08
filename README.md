@@ -21,7 +21,7 @@ Whether your documentation is in Markdown files, stored in a database, or manage
 
 - **Automatic Documentation Indexing**: Scans and reads Markdown (`.md`) files from specified directories.
 - **Text Chunking with Overlap**: Splits large documents into manageable chunks with overlapping tokens to maintain context.
-- **Embedding Generation**: Utilizes OpenAI's `text-embedding-ada-002` model to generate embeddings for each text chunk.
+- **Embedding Generation**: Utilizes OpenAI's `text-embedding-3-large` model to generate embeddings for each text chunk.
 - **Efficient Vector Storage**: Stores embeddings locally in a JSON file for quick access and avoids redundant computations.
 - **Vector Similarity Search**: Implements cosine similarity to find the most relevant chunks in response to user queries.
 - **Express.js Backend**: Handles API requests, processes user queries, and interacts with OpenAI's Chat Completion API.
