@@ -1,0 +1,39 @@
+{
+  "name": "website",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Code starter helper for a smart documentation based on OpenAI Embedding and ChatGPT",
+  "keywords": [
+    "smart documentation",
+    "openAI",
+    "documentation",
+    "ChatGPT"
+  ],
+  "bugs": {
+    "url": "https://github.com/aymericzip/smart_doc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/smart_doc.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "scripts": {
+    "start": "node --import=tsx --watch ./src/index.ts"
+  },
+  "dependencies": {
+    "express": "^5.0.1",
+    "fast-glob": "^3.3.3",
+    "openai": "^4.76.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "eslint": "^9.16.0",
+    "prettier": "^3.4.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
