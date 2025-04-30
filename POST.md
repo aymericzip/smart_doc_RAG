@@ -162,13 +162,13 @@ const chunkText = (text: string): string[] => {
 
 ### 2.2 Embedding Generation
 
-Once a file is chunked, we generate vector embeddings for each chunk using OpenAI’s API (e.g., `text-embedding-ada-002`).
+Once a file is chunked, we generate vector embeddings for each chunk using OpenAI’s API (e.g., `text-embedding-3-large`).
 
 ```ts
 import { OpenAI } from "openai";
 
 const EMBEDDING_MODEL: OpenAI.Embeddings.EmbeddingModel =
-  "text-embedding-ada-002"; // Model to use for embedding generation
+  "text-embedding-3-large"; // Model to use for embedding generation
 
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
