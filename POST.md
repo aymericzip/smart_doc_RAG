@@ -13,9 +13,10 @@ Because it can sometimes be hard to find the information you need, I wanted to c
 
 This assistant can be used in a variety of ways, such as:
 
-- Providing quick answers to frequently asked questions
-- Helping users find the information they need
-- Troubleshoot, review or transform the user's code
+- **Providing quick answers to frequently asked questions**
+- **Searching a doc / page as Algolia does**
+- **Helping users find the information they need in a specific doc**
+- **Retrieving user worries / questions by storing the asked questions**
 
 ---
 
