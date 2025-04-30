@@ -497,6 +497,6 @@ I hope this gives you an idea of how to handle documentation indexing for a chat
 - Generating embeddings and storing them for quick vector similarity searches,
 - Finally handing it off to ChatGPT with the relevant context.
 
-I’m not an AI expert—this is just a solution that I found works well for my needs. If you have any tips on improving efficiency or a more polished approach, **please let me know**. I’d love to hear feedback on vector storage solutions, chunking strategies, or any other performance tips.
+I’m not an AI expert,this is just a solution that I found works well for my needs. If you have any tips on improving efficiency or a more polished approach, **please let me know**. I’d love to hear feedback on vector storage solutions, chunking strategies, or any other performance tips.
 
 **Thanks for reading and feel free to share your thoughts!**
