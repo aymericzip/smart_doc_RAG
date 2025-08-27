@@ -22,9 +22,9 @@
     "url": "https://github.com/aymericzip"
   },
   "scripts": {
-    "build": "npm run build:docs && npm run build:website",
-    "build:docs": "cd ./docs && npm run build",
-    "build:website": "cd ./website && npm run build"
+    "build": "pnpm build:docs && pnpm build:website",
+    "build:docs": "cd ./docs && pnpm build",
+    "build:website": "cd ./website && pnpm build"
   },
   "dependencies": {
     "fast-glob": "^3.3.3",
