@@ -20,7 +20,7 @@ COPY  . .
 RUN pnpm install --frozen-lockfile
 
 # Build every package in the workspace (uses the root "build" script)
-RUN pnpm run build:ci
+RUN pnpm run build
 
 # Set working directory to the website package and build it
 WORKDIR /workspace/website
