@@ -1,0 +1,93 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
+  "keywords": [
+    "intlayer",
+    "website",
+    "application",
+    "editor",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev --turbopack",
+    "lint": "next lint",
+    "lint:fix": "next lint . --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "start": "next start",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
+    "@next/third-parties": "^15.3.3",
+    "@radix-ui/react-dialog": "^1.1.4",
+    "@radix-ui/react-select": "^2.1.4",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.4",
+    "@shikijs/transformers": "^3.2.1",
+    "@smart-doc/docs": "workspace:*",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tanstack/react-query": "^5.85.5",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.16.0",
+    "fuse.js": "^7.1.0",
+    "intlayer": "^5.8.0",
+    "lucide-react": "^0.541.0",
+    "next": "^15.4.6",
+    "next-intlayer": "^5.8.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-hook-form": "^7.54.2",
+    "rehype-react": "^8.0.0",
+    "remark": "^15.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^3.2.1",
+    "tailwind-merge": "^3.3.0",
+    "unified": "^11.0.5",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.56",
+    "zustand": "^4.5.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.8",
+    "@types/node": "^24.2.1",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.6",
+    "eslint": "^9.33.0",
+    "eslint-config-next": "15.3.3",
+    "postcss": "^8.5.4",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^4.1.8",
+    "typescript": "^5.8.3"
+  }
+}

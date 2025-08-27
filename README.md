@@ -65,7 +65,7 @@ npm install
 
 ### Configure OpenAI API Key
 
-Fill your OpenAI API key in the `OPENAI_API_KEY` variable in the `src/askDocQuestion.ts` file.
+Fill your OpenAI API key in the `OPEN_AI_API_KEY` variable in the `src/askDocQuestion.ts` file.
 
 ### Start the Server
 

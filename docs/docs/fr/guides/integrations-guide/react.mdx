@@ -1,0 +1,211 @@
+---
+type: integration
+title: '@astrojs/react'
+description: "Apprenez à utiliser l'intégration de framework @astrojs/react pour étendre la prise en charge des composants dans votre projet Astro."
+sidebar:
+  label: React
+githubIntegrationURL: 'https://github.com/withastro/astro/tree/main/packages/integrations/react/'
+category: renderer
+i18nReady: true
+---
+import PackageManagerTabs from '~/components/tabs/PackageManagerTabs.astro'
+
+Cette **[intégration Astro][astro-integration]** permet le rendu et l'hydratation côté client pour vos composants [React](https://react.dev/).
+
+## Installation
+
+Astro inclut une commande `astro add` pour automatiser l'installation des intégrations officielles. Si vous préférez, vous pouvez [installer les intégrations manuellement](#installation-manuelle) à la place.
+
+Pour installer `@astrojs/react`, exécutez ce qui suit depuis le répertoire de votre projet et suivez les instructions :
+
+<PackageManagerTabs>
+  <Fragment slot="npm">
+    ```sh
+    npx astro add react
+    ```
+  </Fragment>
+  <Fragment slot="pnpm">
+    ```sh
+    pnpm astro add react
+    ```
+  </Fragment>
+  <Fragment slot="yarn">
+    ```sh
+    yarn astro add react
+    ```
+  </Fragment>
+</PackageManagerTabs>
+
+Si vous rencontrez des problèmes, [n'hésitez pas à nous les signaler sur GitHub](https://github.com/withastro/astro/issues) et essayez les étapes d'installation manuelle ci-dessous.
+
+### Installation manuelle
+
+Tout d'abord, installez le paquet `@astrojs/react` :
+
+<PackageManagerTabs>
+  <Fragment slot="npm">
+    ```sh
+    npm install @astrojs/react
+    ```
+  </Fragment>
+  <Fragment slot="pnpm">
+    ```sh
+    pnpm add @astrojs/react
+    ```
+  </Fragment>
+  <Fragment slot="yarn">
+    ```sh
+    yarn add @astrojs/react
+    ```
+  </Fragment>
+</PackageManagerTabs>
+
+La plupart des gestionnaires de paquets installent également les dépendances associées. Si vous voyez un avertissement `Cannot find package 'react'` (ou similaire) lorsque vous démarrez Astro, vous devrez installer `react` et `react-dom` avec ses définitions de type :
+
+<PackageManagerTabs>
+  <Fragment slot="npm">
+    ```sh
+    npm install react react-dom @types/react @types/react-dom
+    ```
+  </Fragment>
+  <Fragment slot="pnpm">
+    ```sh
+    pnpm add react react-dom @types/react @types/react-dom
+    ```
+  </Fragment>
+  <Fragment slot="yarn">
+    ```sh
+    yarn add react react-dom @types/react @types/react-dom
+    ```
+  </Fragment>
+</PackageManagerTabs>
+
+Ensuite, appliquez l'intégration à votre fichier `astro.config.*` en utilisant la propriété `integrations` :
+
+```js ins="react()" ins={2} title="astro.config.mjs"
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+
+export default defineConfig({
+  // ...
+  integrations: [react()],
+});
+```
+
+Et ajoutez le code suivant au fichier `tsconfig.json`.
+
+```json title="tsconfig.json" ins={5-8}
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}
+```
+
+## Démarrage
+
+Pour utiliser votre premier composant React dans Astro, dirigez-vous vers notre [documentation sur les frameworks UI][astro-ui-frameworks]. Vous y découvrirez :
+
+* 📦 comment les composants de framework sont chargés,
+* 💧 les options d'hydratation côté client, et
+* 🤝 les possibilités de mélanger et d'imbriquer les frameworks.
+
+## Options
+
+### Combinaison de plusieurs frameworks JSX
+
+Lorsque vous utilisez plusieurs frameworks JSX (React, Preact, Solid) dans le même projet, Astro doit déterminer quelles transformations spécifiques au framework JSX doivent être utilisées pour chacun de vos composants. Si vous n'avez ajouté qu'une seule intégration de framework JSX à votre projet, aucune configuration supplémentaire n'est nécessaire.
+
+Utilisez les options de configuration `include` (obligatoire) et `exclude` (optionnelle) pour spécifier quels fichiers appartiennent à quel framework. Fournissez un tableau de fichiers et/ou de dossiers à `inclure` pour chaque framework que vous utilisez. Des caractères joker peuvent être utilisés pour inclure plusieurs chemins de fichiers.
+
+Nous recommandons de placer les composants communs du framework dans le même dossier (par exemple `/composants/react/` et `/composants/solid/`) pour faciliter la spécification de vos inclusions, mais ce n'est pas obligatoire :
+
+```js title="astro.config.mjs"
+import { defineConfig } from 'astro/config';
+import preact from '@astrojs/preact';
+import react from '@astrojs/react';
+import svelte from '@astrojs/svelte';
+import vue from '@astrojs/vue';
+import solid from '@astrojs/solid-js';
+
+export default defineConfig({
+  // Permettre à de nombreux frameworks de prendre en charge tous les différents types de composants.
+  // Aucun `include` n'est nécessaire si vous n'utilisez qu'un seul framework JSX !
+  integrations: [
+    preact({
+      include: ['**/preact/*'],
+    }),
+    react({
+      include: ['**/react/*'],
+    }),
+    solid({
+      include: ['**/solid/*'],
+    }),
+  ],
+});
+```
+
+### Analyse syntaxique des éléments enfants
+
+Les enfants transmis dans un composant React depuis un composant Astro sont analysés comme des chaînes de caractères simples, et non comme des nœuds React.
+
+Par exemple, le composant `<ReactComponent />` ci-dessous ne recevra qu'un seul élément enfant :
+
+```astro
+---
+import ReactComponent from './ReactComponent';
+---
+
+<ReactComponent>
+  <div>un</div>
+  <div>deux</div>
+</ReactComponent>
+```
+
+Si vous utilisez une bibliothèque qui *attend* que plus d'un élément enfant soit passé, par exemple pour qu'elle puisse placer certains éléments à différents endroits, vous pourriez trouver cela bloquant.
+
+Vous pouvez utiliser l'option expérimentale `experimentalReactChildren` pour dire à Astro de toujours passer les enfants à React en tant que nœuds DOM virtuels React. Il y a un coût d'exécution à cela, mais cela peut aider à la compatibilité.
+
+Vous pouvez activer cette option dans la configuration de l'intégration de React :
+
+```js title="astro.config.mjs" ins={8}
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+
+export default defineConfig({
+  // ...
+  integrations: [
+    react({
+      experimentalReactChildren: true,
+    }),
+  ],
+});
+```
+
+### Désactiver le streaming (expérimental)
+
+Astro diffuse par défaut la sortie des composants React. Cependant, vous pouvez désactiver ce comportement en activant l'option `experimentalDisableStreaming`. Cela est particulièrement utile pour prendre en charge les bibliothèques qui ne fonctionnent pas bien avec le streaming, comme certaines solutions CSS-in-JS.
+
+Pour désactiver le streaming pour tous les composants React de votre projet, configurez `@astrojs/react` avec `experimentalDisableStreaming: true` :
+
+```js title="astro.config.mjs" ins={8}
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+
+export default defineConfig({
+  // ...
+  integrations: [
+    react({
+      experimentalDisableStreaming: true,
+    }),
+  ],
+});
+```
+
+[astro-integration]: /fr/guides/integrations-guide/
+
+[astro-ui-frameworks]: /fr/guides/framework-components/#utilisation-des-composants-de-framework

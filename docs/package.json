@@ -1,0 +1,74 @@
+{
+  "name": "@smart-doc/docs",
+  "version": "1.0.0",
+  "private": true,
+  "keywords": [
+    "smart-doc",
+    "documentation",
+    "application",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    }
+  },
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "files": [
+    "docs",
+    "src",
+    "dist",
+    "frequent_questions",
+    "blog",
+    "legal"
+  ],
+  "scripts": {
+    "prebuild": "tsx tools/generateEntry.ts",
+    "prebuild:embeddings": "tsx tools/generateEmbeddings.ts",
+    "build": "pnpm clean & pnpm build:ci",
+    "build:ci": "pnpm build:package & pnpm build:types",
+    "build:package": "tsup",
+    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "clean": "rimraf ./dist",
+    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "review": "tsx tools/review.ts",
+    "test": "vitest run",
+    "translate": "tsx tools/translate.ts",
+    "typecheck": "tsup --project ./tsconfig.json --noEmit",
+    "watch": "webpack --config ./webpack.config.ts --watch"
+  },
+  "dependencies": {
+    "openai": "^4.89.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.1",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.33.0",
+    "fast-glob": "^3.3.3",
+    "intlayer": "^5.8.0",
+    "@intlayer/cli": "^5.8.0",
+    "esbuild-fix-imports-plugin": "^1.0.22",
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "dotenv": "^16.6.1",
+    "tsc-alias": "^1.8.16",
+    "tsup": "^8.5.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.2"
+  },
+  "engines": {
+    "node": ">=14.18"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "storybook-static",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/__tests__/**"
+  ],
+  "compilerOptions": {
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "target": "ESNext",
+    "allowJs": true,
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "skipDefaultLibCheck": false,
+    "jsx": "react-jsx",
+    "types": ["node"],
+    "allowImportingTsExtensions": true,
+    "strict": false,
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "noEmit": false,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "outDir": "dist/types",
+    "forceConsistentCasingInFileNames": true
+  }
+}

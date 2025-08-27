@@ -1,0 +1,73 @@
+import { t, type Dictionary } from 'intlayer';
+
+const searchTriggerContent: Dictionary = {
+  key: 'doc-search-view',
+  content: {
+    noContentText: t({
+      en: 'No results found',
+      'en-GB': 'No results found',
+      fr: 'Aucun résultat trouvé',
+      es: 'No se encontraron resultados',
+      de: 'Keine Ergebnisse gefunden',
+      ja: '結果が見つかりませんでした',
+      ko: '결과를 찾을 수 없습니다',
+      zh: '未找到结果',
+      it: 'Nessun risultato trovato',
+      pt: 'Nenhum resultado encontrado',
+      hi: 'कोई परिणाम नहीं मिला',
+      ar: 'لم يتم العثور على نتائج',
+      ru: 'Результатов не найдено',
+    }),
+    searchInput: {
+      label: t({
+        en: 'Search',
+        'en-GB': 'Search',
+        fr: 'Rechercher',
+        es: 'Buscar',
+        de: 'Durchsuchen',
+        ja: '検索',
+        ko: '검색',
+        zh: '搜索',
+        it: 'Cerca',
+        pt: 'Pesquisar',
+        hi: 'खोजें',
+        ar: 'بحث',
+        ru: 'Поиск',
+      }),
+      placeholder: t({
+        en: 'Search...',
+        'en-GB': 'Search...',
+        fr: 'Rechercher...',
+        es: 'Buscar...',
+        de: 'Durchsuchen...',
+        ja: '検索...',
+        ko: '검색...',
+        zh: '搜索...',
+        it: 'Cerca...',
+        pt: 'Pesquisar...',
+        hi: 'खोजें...',
+        ar: 'بحث...',
+        ru: 'Поиск...',
+      }),
+    },
+    searchResultItemButton: {
+      label: t({
+        en: 'Click to view',
+        'en-GB': 'Click to view',
+        fr: 'Cliquez pour voir',
+        es: 'Haga clic para ver',
+        de: 'Klicken Sie, um anzuzeigen',
+        ja: 'クリックして見る',
+        ko: '클릭하여 보기',
+        zh: '单击查看',
+        it: 'Clicca per visualizzare',
+        pt: 'Clique para ver',
+        hi: 'देखने के लिए क्लिक करें',
+        ar: 'انقر لعرض',
+        ru: 'Нажмите, чтобы просмотреть',
+      }),
+    },
+  },
+};
+
+export default searchTriggerContent;

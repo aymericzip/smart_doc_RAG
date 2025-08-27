@@ -171,7 +171,7 @@ import { OpenAI } from "openai";
 const EMBEDDING_MODEL: OpenAI.Embeddings.EmbeddingModel =
   "text-embedding-3-large"; // Model to use for embedding generation
 
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+const openai = new OpenAI({ apiKey: OPEN_AI_API_KEY });
 
 const generateEmbedding = async (textChunk: string): Promise<number[]> => {
   const response = await openai.embeddings.create({
