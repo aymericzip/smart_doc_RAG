@@ -139,6 +139,9 @@ importers:
       next-intlayer:
         specifier: ^5.8.0
         version: 5.8.0(@intlayer/api@5.8.0-canary.0)(@intlayer/config@5.8.0-canary.0)(@intlayer/core@5.8.0)(@intlayer/dictionaries-entry@5.8.0-canary.0)(@intlayer/webpack@5.8.0(@intlayer/api@5.8.0-canary.0)(@intlayer/chokidar@5.8.0-canary.0)(@intlayer/config@5.8.0-canary.0)(webpack@5.101.3))(fast-glob@3.3.3)(intlayer@5.8.0)(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react-intlayer@5.8.0(@intlayer/api@5.8.0-canary.0)(@intlayer/config@5.8.0-canary.0)(@intlayer/core@5.8.0)(@intlayer/dictionaries-entry@5.8.0-canary.0)(@intlayer/editor-react@5.8.0(@intlayer/config@5.8.0-canary.0)(@intlayer/core@5.8.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(intlayer@5.8.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(webpack@5.101.3)
+      openai:
+        specifier: ^4.76.1
+        version: 4.104.0(ws@8.18.3)(zod@3.25.76)
       react:
         specifier: ^19.1.1
         version: 19.1.1
