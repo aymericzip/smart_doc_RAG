@@ -26,10 +26,6 @@
     "build:docs": "cd ./docs && pnpm build",
     "build:website": "cd ./website && pnpm build"
   },
-  "dependencies": {
-    "fast-glob": "^3.3.3",
-    "next": "^15.4.6"
-  },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "eslint": "^9.16.0",
