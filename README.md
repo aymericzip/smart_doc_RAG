@@ -1,7 +1,7 @@
 # Smart Documentation Chatbot
 A friendly, out-of-the-box framework that turns your project documentation into a chatbot you can ask anything.
 
-![Online Demo](https://github.com/aymericzip/smart_doc/blob/main/assets/chat_screenshot.png)
+![Online Demo](https://github.com/aymericzip/smart_doc/blob/main/assets/demo_compressed.gif)
 
 ## Table of Contents
 
