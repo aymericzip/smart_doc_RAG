@@ -50,7 +50,7 @@ export const generateMetadata = async ({
     },
     openGraph: {
       url: getLocalizedUrl(
-        `https://${process.env.NEXT_PUBLIC_URL ?? "example.com"}${relativeUrl}`,
+        `${process.env.NEXT_PUBLIC_URL}${relativeUrl}`,
         locale
       ),
       title: docData.title,
