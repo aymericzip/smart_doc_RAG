@@ -1,4 +1,5 @@
 # Smart Documentation Chatbot
+A friendly, out-of-the-box framework that turns your project documentation into a chatbot you can ask anything.
 
 ![Online Demo](https://github.com/aymericzip/smart_doc/blob/main/assets/chat_screenshot.png)
 
@@ -13,7 +14,7 @@
 
 ## Introduction
 
-Welcome to the **Smart Documentation Chatbot** repository! This project showcases a chatbot designed to intelligently navigate and provide information from your documentation. Leveraging OpenAI's embeddings, the chatbot efficiently indexes, searches, and retrieves relevant content to answer user queries seamlessly.
+Welcome to the **Smart Documentation Chatbot** repository! This project showcases a chatbot designed to intelligently navigate and provide information from your documentation. Ever wanted to just ask your documentation a question like "Where is the installation guide?" or "How does this component work?" instead of searching through files? This project turns your docs into a conversational assistant using OpenAI embeddings and a vector similarity search.
 
 Whether your documentation is in Markdown files, stored in a database, or managed through a CMS, this chatbot framework can be adapted to suit your needs.
 
