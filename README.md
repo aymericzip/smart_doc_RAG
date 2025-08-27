@@ -1,54 +1,51 @@
 # Smart Documentation Chatbot
-A friendly, out-of-the-box framework that turns your project documentation into a chatbot you can ask anything.
+
+An easy-to-use framework that turns your project documentation into a chatbot you can ask anything.
 
 ![Online Demo](https://github.com/aymericzip/smart_doc/blob/main/assets/demo_compressed.gif)
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Demo](#demo)
-- [Installation](#installation)
-- [Usage](#usage)
-
 ## Introduction
 
-Welcome to the **Smart Documentation Chatbot** repository! This project showcases a chatbot designed to intelligently navigate and provide information from your documentation. Ever wanted to just ask your documentation a question like "Where is the installation guide?" or "How does this component work?" instead of searching through files? This project turns your docs into a conversational assistant using OpenAI embeddings and a vector similarity search.
+Free TypeScript template for a **Smart Documentation Chatbot**.
 
-Whether your documentation is in Markdown files, stored in a database, or managed through a CMS, this chatbot framework can be adapted to suit your needs.
+This project indexes your documentation and lets you query it through a chatbot.
 
-## Features
+It replicates how the [Intlayer documentation](https://intlayer.org/doc/get-started) works.
 
-- **Automatic Documentation Indexing**: Scans and reads Markdown (`.md`) files from specified directories.
-- **Text Chunking with Overlap**: Splits large documents into manageable chunks with overlapping tokens to maintain context.
-- **Embedding Generation**: Utilizes OpenAI's `text-embedding-3-large` model to generate embeddings for each text chunk.
-- **Efficient Vector Storage**: Stores embeddings locally in a JSON file for quick access and avoids redundant computations.
-- **Vector Similarity Search**: Implements cosine similarity to find the most relevant chunks in response to user queries.
-- **Express.js Backend**: Handles API requests, processes user queries, and interacts with OpenAI's Chat Completion API.
-- **React Frontend**: Provides a simple and intuitive chat interface for users to interact with the chatbot.
-- **Live Demo Available**: Experience the chatbot in action through the live demo link.
+How it works:
+
+1. We use OpenAI embeddings and store them in a JSON file.
+2. We then use vector similarity search to find the documents most relevant to the user query.
+3. We return the most relevant documents to the user.
 
 ## Architecture
 
 The project is divided into three main components:
 
-1. **Reading Documentation Files**: Scans designated folders for Markdown files and reads their content.
-2. **Indexing the Documentation**:
-   - **Chunking**: Splits documents into chunks with overlapping tokens.
-   - **Embedding Generation**: Creates embeddings for each chunk using OpenAI's API.
-   - **Storage**: Saves embeddings locally to prevent redundant generation.
-3. **Searching the Documentation**:
-   - **Vector Similarity**: Uses cosine similarity to match user queries with relevant document chunks.
-   - **Integration with Chatbot**: Feeds relevant chunks into the ChatGPT context to generate accurate responses.
+1. **docs**
+   - We index the docs
+   - We store embeddings in a JSON file
+2. **website** (Next.js)
+   - Renders and interprets the docs using `intlayer` and Next.js route handlers
+   - Uses OpenAI vector similarity search to find the most relevant documents
+   - Returns the most relevant results to the user
+
+## How it works
+
+1. List and index all available documentation
+2. Generate an embedding for each document using OpenAI
+3. Store embeddings in a JSON file
+4. When a user asks a question or searches for a doc:
+   - Generate a new embedding for the user's query
+   - Use vector similarity search to find the most relevant documents
+   - Retrieve the top matching documents
+5. Return the most relevant documents to the user
 
 ## Demo
 
 Check out a demo for my Intlayer project [**here**](https://intlayer.org/doc/chat).
 
 ## Installation
-
-Follow these steps to set up the project locally.
 
 ### Clone the Repository
 
@@ -60,85 +57,28 @@ cd smart_doc
 ### Install Dependencies
 
 ```bash
-npm install
+npm install -g pnpm
+pnpm install
 ```
 
-### Configure OpenAI API Key
+### Configure the .env files
 
-Fill your OpenAI API key in the `OPEN_AI_API_KEY` variable in the `src/askDocQuestion.ts` file.
+You can find two .env template files in the project:
 
-### Start the Server
+- `website/.env.template`
+- `docs/.env.template`
+
+Rename these files to `.env` and fill the variables with your own values.
+
+### Build the project
 
 ```bash
-npm start
+pnpm run build
 ```
 
-## Usage
-
-To test the chatbot's API, you can use either JavaScript (with `fetch`) or `curl` in your terminal. Below are examples of how to perform queries using both methods.
-
-### Using JavaScript
-
-Here's an example of how to query the chatbot using JavaScript's `fetch` API:
-
-```javascript
-fetch("http://localhost:3000/ask", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    messages: [
-      {
-        role: "user",
-        content: "What is the purpose of this library?",
-      },
-    ],
-  }),
-})
-  .then((response) => response.json())
-  .then((data) => {
-    console.log("Chatbot Response:", data);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
-```
-
-**Explanation:**
-
-- **Endpoint**: `http://localhost:3000/ask` - Ensure the backend server is running on port 3000.
-- **Method**: `POST` - Sending a POST request with JSON payload.
-- **Headers**: Specifies that the content type is JSON.
-- **Body**: Contains the user's message in the required format.
-
-### Using `curl` in Bash
-
-Alternatively, you can use `curl` to send a POST request from your terminal:
+### Start the project
 
 ```bash
-curl -X POST http://localhost:3000/ask \
-  -H "Content-Type: application/json" \
-  -d '{
-    "messages": [
-      {
-        "role": "user",
-        "content": "Do the Rangers have a shared headquarters or base?"
-      }
-    ]
-  }'
+cd website
+pnpm run start
 ```
-
-**Explanation:**
-
-- **`-X POST`**: Specifies the POST method.
-- **`-H "Content-Type: application/json"`**: Sets the header to indicate JSON content.
-- **`-d '...'`**: Provides the JSON payload with the user's message.
-
-**Sample Response:**
-
-```json
-"Yes, the Rangers have a shared headquarters known as the Command Center. It serves as their base of operations where they plan missions, store their equipment, and coordinate their efforts to protect the city from various threats."
-```
-
-**Note:** Replace the content of the `messages` array with your desired query to test different responses from the chatbot.

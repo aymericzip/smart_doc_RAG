@@ -3,3 +3,4 @@ dist
 .next
 .intlayer
 .env
+post/
