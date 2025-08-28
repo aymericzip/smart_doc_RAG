@@ -5,7 +5,6 @@ import {
   LocalesValues,
 } from "intlayer";
 import { join } from "path";
-import embeddings from "./generated/embeddings.json" with { type: "json" };
 import {
   generateEmbedding,
   searchChunkReference,
