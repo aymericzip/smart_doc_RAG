@@ -15,7 +15,7 @@ import {
 export const defaultLocale = Locales.ENGLISH;
 
 export const GITHUB_URL_PREFIX =
-  "https://github.com/aymericzip/smart-doc/blob/main/docs/";
+  "https://github.com/aymericzip/smart-doc/blob/main/";
 
 export const getFile = async <
   F extends Record<string, Record<LocalesValues, Promise<string>>>,
