@@ -1,53 +1,68 @@
-import type { FC, HTMLAttributes, ReactNode } from 'react';
-import { useState } from 'react';
-import { cn } from '../../utils/cn';
+"use client";
 
-interface ExpandCollapseProps extends HTMLAttributes<HTMLDivElement> {
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
+import { useIntlayer } from "next-intlayer";
+import { cn } from "../../utils/cn";
+import { MaxHeightSmoother } from "../MaxHeightSmoother";
+
+export type ExpandCollapseProps = {
+  isRollable?: boolean;
+  minHeight?: number;
   children: ReactNode;
-  isExpanded?: boolean;
-  onToggle?: (expanded: boolean) => void;
-  trigger?: ReactNode;
-}
+  className?: string;
+};
 
-export const ExpandCollapse: FC<ExpandCollapseProps> = ({ 
-  className,
+const DEFAULT_MIN_HEIGHT = 700;
+
+export const ExpandCollapse: FC<ExpandCollapseProps> = ({
+  isRollable = true,
+  minHeight = DEFAULT_MIN_HEIGHT,
   children,
-  isExpanded = false,
-  onToggle,
-  trigger,
-  ...props 
+  className,
 }) => {
-  const [expanded, setExpanded] = useState(isExpanded);
+  const [codeContainerHeight, setCodeContainerHeight] = useState(0);
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const codeContainerRef = useRef<HTMLDivElement>(null);
+  const { expandCollapseContent } = useIntlayer("expand-collapse");
 
-  const handleToggle = () => {
-    const newExpanded = !expanded;
-    setExpanded(newExpanded);
-    onToggle?.(newExpanded);
-  };
+  const isTooBig = codeContainerHeight > minHeight;
 
-  return (
-    <div className={cn('expand-collapse', className)} {...props}>
-      {trigger && (
-        <button
-          type="button"
-          onClick={handleToggle}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
-        >
-          {trigger}
-          <span className={cn(
-            'transition-transform duration-200',
-            expanded ? 'rotate-90' : 'rotate-0'
-          )}>
-            ▶
-          </span>
-        </button>
-      )}
-      <div className={cn(
-        'overflow-hidden transition-all duration-200',
-        expanded ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-      )}>
+  useEffect(() => {
+    if (codeContainerRef.current) {
+      setCodeContainerHeight(codeContainerRef.current.clientHeight);
+    }
+  }, []);
+
+  if (!isRollable) {
+    return children;
+  }
+
+  if (!isTooBig) {
+    return (
+      <div className={cn("grid w-full", className)} ref={codeContainerRef}>
         {children}
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <MaxHeightSmoother
+      isHidden={isCollapsed}
+      minHeight={minHeight}
+      className="w-full overflow-x-scroll overflow-y-hidden"
+    >
+      <div className={cn("grid w-full", className)} ref={codeContainerRef}>
+        {children}
+      </div>
+      <button
+        className={cn(
+          "absolute bottom-0 right-0 flex justify-center cursor-pointer w-full px-3 py-0.5 hover:py-1 transition-all duration-300 text-md text-neutral-700 dark:text-neutral-400 items-center shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur rounded-t-2xl bg-gradient-to-t from-card/80 to-transparent",
+          !isCollapsed && "w-auto"
+        )}
+        onClick={() => setIsCollapsed((prev) => !prev)}
+      >
+        {expandCollapseContent(isCollapsed)}
+      </button>
+    </MaxHeightSmoother>
   );
 };

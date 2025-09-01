@@ -11,6 +11,8 @@ import { ChatCompletionRequestMessage } from "@components/ChatBot/MessagesList";
 const MODEL: string = "chatgpt-4o-latest"; // Model to use for chat completions
 const MODEL_TEMPERATURE: number = 0.1; // Temperature to use for chat completions
 
+const MAX_MESSAGE_PER_CHAT: number = 8; // Limit the side of the chat history to limit the entry token cost
+
 /**
  * Reads the content of a file synchronously.
  *
@@ -94,7 +96,7 @@ export const askDocQuestion = async (
       role: "system" as const,
       content: systemPrompt,
     },
-    ...messages.slice(-8),
+    ...messages.slice(-MAX_MESSAGE_PER_CHAT),
   ];
 
   // 3) Use ChatGPT to stream the response
