@@ -1,14 +1,11 @@
 "use client";
 
 import { Button } from "@components/Button";
+import { ChatBot } from "@components/ChatBot";
 import { Modal } from "@components/Modal";
-import { Bot, Loader } from "lucide-react";
+import { Bot } from "lucide-react";
 import { useIntlayer } from "next-intlayer";
-import { lazy, Suspense, useState, type FC } from "react";
-
-const ChatBot = lazy(() =>
-  import("@components/ChatBot").then((module) => ({ default: module.ChatBot }))
-);
+import { useState, type FC } from "react";
 
 export const ChatBotModal: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,11 +23,7 @@ export const ChatBotModal: FC = () => {
         disableScroll
         hasCloseButton
       >
-        {isModalOpen && (
-          <Suspense fallback={<Loader />}>
-            <ChatBot />
-          </Suspense>
-        )}
+        <ChatBot />
       </Modal>
       <Button
         Icon={Bot}
