@@ -14,7 +14,7 @@ import {
 export const defaultLocale = Locales.ENGLISH;
 
 export const GITHUB_URL_PREFIX =
-  "https://github.com/aymericzip/smart-doc/blob/main/";
+  "https://github.com/aymericzip/smart_doc_RAG/blob/main/docs/";
 
 export const getFile = async <
   F extends Record<string, Record<LocalesValues, Promise<string>>>,
@@ -75,8 +75,8 @@ export const formatMetadata = (
 
   const slugs = docKey.replace("./docs/en/", "").replace(".mdx", "").split("/");
 
-  const relativeUrl = join("/", ...(slugs ?? []));
-  const slicedDocKey = docKey.replace("./", "/");
+  const relativeUrl = join(...(slugs ?? []));
+  const slicedDocKey = docKey.replace("./", "");
 
   return {
     ...metadata,
